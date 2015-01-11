@@ -83,9 +83,37 @@ feb_1st_2nd_2007 <- subset(HPC_data, HPC_data$Date >= "2007-02-01 00:00:00" & HP
 #summary(feb_1st_2nd_2007)
 
 
-png(file = "plot1.png", width = 480, height = 480)
+library(zoo)
 
-hist(feb_1st_2nd_2007$Global_active_power, main = "Global Active Power", xlab =  "Global Active Power (kilowatts)", col = 2,, xlim = c(0, 6), ylim = c(0, 1200))
+feb_1st_2nd_2007_zoo <- zoo(feb_1st_2nd_2007[,2:8], feb_1st_2nd_2007$Date)
+
+png(file = "plot4.png", width = 480, height = 480)
+
+#Insert plot code here
+# save off original settings in order to reset on exit
+oldPar <- par(no.readonly=TRUE)
+
+par(mfrow = c(2,2))
+
+#top left
+hist(feb_1st_2nd_2007$Global_active_power,  main = "", xlab =  "Global Active Power (kilowatts)", col = 2,, xlim = c(0, 6), ylim = c(0, 1200))
+
+#top right
+plot(feb_1st_2nd_2007$Voltage, type = "l",  ylab =  "Voltage", xlab = "timedate")
+
+
+#bottom left
+plot(feb_1st_2nd_2007_zoo$Sub_metering_1, ylab =  "Energy sub metering", xlab = "", type = "n")
+lines(feb_1st_2nd_2007_zoo$Sub_metering_1, col = 1)
+lines(feb_1st_2nd_2007_zoo$Sub_metering_2, col = 2)
+lines(feb_1st_2nd_2007_zoo$Sub_metering_3, col = 4)
+legend("topright", bty = "n", lwd = 2, lty = , cex = 1, y.intersp = 0.8, legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col = c(1,2,4))
+
+#bottom right
+plot(feb_1st_2nd_2007$Global_reactive_power, type = "l",  ylab =  "Global_reactive_power", xlab = "timedate")
 
 dev.off()
+
+par(oldPar)
+
 

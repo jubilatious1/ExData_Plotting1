@@ -87,10 +87,10 @@ library(zoo)
 
 feb_1st_2nd_2007_zoo <- zoo(feb_1st_2nd_2007[,2:8], feb_1st_2nd_2007$Date)
 
-png(file = "Power_plot2.png", width = 480, height = 480)
+png(file = "plot2.png", width = 480, height = 480)
 
 #Insert plot code here
-plot(feb_1st_2nd_2007_zoo$Global_active_power, ylab =  "Global Active Power (kilowatts)")
+plot(feb_1st_2nd_2007_zoo$Global_active_power, ylab =  "Global Active Power (kilowatts)", xlab = "")
 
 dev.off()
 
